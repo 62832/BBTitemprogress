@@ -3,7 +3,6 @@
 import requests
 import json
 from os import system
-from multiprocessing import Queue
 
 REQUEST = "http://steamcommunity.com/inventory/<>/238460/2?l=english&count=500"
 WALTER = "A collector of fine confections.  " # cylinder Walter description
