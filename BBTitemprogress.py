@@ -51,13 +51,13 @@ if __name__ == '__main__':
     user = input("Enter your Steam user ID (SteamID64): ")
     items = count_inventory(get_inventory(user))
 
-	print()
+    print()
     print("Circle heads: {}/64".format(items[0]))
     print("Triangle heads: {}/64".format(items[1]))
     print("Square heads: {}/64".format(items[2]))
     print("Cylinder heads: {}/64".format(items[3]))
     print("Star heads: {}/64".format(items[4]))
     print("Weapons: {}/13".format(items[5]))
-	print()
+    print()
 
     system('pause')
