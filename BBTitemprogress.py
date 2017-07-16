@@ -58,5 +58,4 @@ if __name__ == '__main__':
     print("Star heads: {}/64".format(items[4]))
     print("Weapons: {}/13".format(items[5]))
 
-    print("\nPress Enter to exit.")
     system('pause')
