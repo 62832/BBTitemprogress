@@ -3,6 +3,7 @@
 import requests
 import json
 from os import system
+from multiprocessing import Queue
 
 REQUEST = "http://steamcommunity.com/inventory/<>/238460/2?l=english&count=500"
 WALTER = "A collector of fine confections.  " # cylinder Walter description
@@ -47,17 +48,44 @@ def count_inventory(inventory):
 
     return (circles, triangles, squares, cylinders, stars, weapons)
 
+def show_remaining(inventory):
+    circles = [i for i in ITEMS['heads']['circle'] if i not in inventory]
+    triangles = [i for i in ITEMS['heads']['triangle'] if i not in inventory]
+    squares = [i for i in ITEMS['heads']['square'] if i not in inventory]
+    cylinders = [i for i in ITEMS['heads']['cylinder'] if i not in inventory]
+    stars = [i for i in ITEMS['heads']['special'] if i not in inventory]
+    weapons = [i for i in ITEMS['weapons'] if i not in inventory]
+
+    remaining = [circles, triangles, squares, cylinders, stars, weapons]
+    remaining = ["All complete!" if i == [] else i for i in remaining]
+    return remaining
+
 if __name__ == '__main__':
-    user = input("Enter your Steam user ID (SteamID64): ")
-    items = count_inventory(get_inventory(user))
+    while True:
+        try:
+            user = input("Enter your Steam user ID (SteamID64): ")
+            items = get_inventory(user)
+            count = count_inventory(items)
+            remaining = show_remaining(items)
+            break
+        except TypeError:
+            print("Invalid ID.")
 
     print()
-    print("Circle heads: {}/64".format(items[0]))
-    print("Triangle heads: {}/64".format(items[1]))
-    print("Square heads: {}/64".format(items[2]))
-    print("Cylinder heads: {}/64".format(items[3]))
-    print("Star heads: {}/64".format(items[4]))
-    print("Weapons: {}/13".format(items[5]))
+    print("Circle heads: {}/64".format(count[0]))
+    print("Triangle heads: {}/64".format(count[1]))
+    print("Square heads: {}/64".format(count[2]))
+    print("Cylinder heads: {}/64".format(count[3]))
+    print("Star heads: {}/64".format(count[4]))
+    print("Weapons: {}/13".format(count[5]))
+    print("\n")
+    print("Remaining items:\n")
+    print("Circles: {}\n".format(remaining[0]))
+    print("Triangles: {}\n".format(remaining[1]))
+    print("Squares: {}\n".format(remaining[2]))
+    print("Cylinders: {}\n".format(remaining[3]))
+    print("Stars: {}\n".format(remaining[4]))
+    print("Weapons: {}".format(remaining[5]))
     print()
 
     system('pause')
