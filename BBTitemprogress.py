@@ -60,31 +60,34 @@ def show_remaining(inventory):
     return remaining
 
 if __name__ == '__main__':
-    while True:
-        try:
-            user = input("Enter your Steam user ID (SteamID64): ")
-            items = get_inventory(user)
-            count = count_inventory(items)
-            remaining = show_remaining(items)
-            break
-        except TypeError:
-            print("Invalid ID.")
+    try:
+        while True:
+            try:
+                user = input("Enter your Steam user ID (SteamID64): ")
+                items = get_inventory(user)
+                count = count_inventory(items)
+                remaining = show_remaining(items)
+                break
+            except TypeError:
+                print("Invalid ID.")
 
-    print()
-    print("Circle heads: {}/64".format(count[0]))
-    print("Triangle heads: {}/64".format(count[1]))
-    print("Square heads: {}/64".format(count[2]))
-    print("Cylinder heads: {}/64".format(count[3]))
-    print("Star heads: {}/64".format(count[4]))
-    print("Weapons: {}/13".format(count[5]))
-    print("\n")
-    print("Remaining items:\n")
-    print("Circles: {}\n".format(remaining[0]))
-    print("Triangles: {}\n".format(remaining[1]))
-    print("Squares: {}\n".format(remaining[2]))
-    print("Cylinders: {}\n".format(remaining[3]))
-    print("Stars: {}\n".format(remaining[4]))
-    print("Weapons: {}".format(remaining[5]))
-    print()
+        print()
+        print("Circle heads: {}/64".format(count[0]))
+        print("Triangle heads: {}/64".format(count[1]))
+        print("Square heads: {}/64".format(count[2]))
+        print("Cylinder heads: {}/64".format(count[3]))
+        print("Star heads: {}/64".format(count[4]))
+        print("Weapons: {}/13".format(count[5]))
+        print("\n")
+        print("Remaining items:\n")
+        print("Circles: {}\n".format(remaining[0]))
+        print("Triangles: {}\n".format(remaining[1]))
+        print("Squares: {}\n".format(remaining[2]))
+        print("Cylinders: {}\n".format(remaining[3]))
+        print("Stars: {}\n".format(remaining[4]))
+        print("Weapons: {}".format(remaining[5]))
+        print()
+    except requests.exceptions.ConnectionError:
+        print("No connection could be made, you might be offline.")
 
     system('pause')
