@@ -24,28 +24,14 @@ def get_inventory(profile):
     return [i for i in names if i not in EXCLUDE]
 
 def count_inventory(inventory):
-    circles = triangles = squares = cylinders = stars = weapons = 0
-    
-    for i in inventory:
-        if i in ITEMS['heads']['circle']:
-            circles += 1
-            
-        if i in ITEMS['heads']['triangle']:
-            triangles += 1
-
-        if i in ITEMS['heads']['square']:
-            squares += 1
-
-        if i in ITEMS['heads']['cylinder']:
-            cylinders += 1
-
-        if i in ITEMS['heads']['special']:
-            stars += 1
-
-        if i in ITEMS['weapons']:
-            weapons += 1
-
-    return (circles, triangles, squares, cylinders, stars, weapons)
+    return (
+	    len([i for i in inventory if i in ITEMS['heads']['circle']]),
+		len([i for i in inventory if i in ITEMS['heads']['triangle']]),
+		len([i for i in inventory if i in ITEMS['heads']['square']]),
+		len([i for i in inventory if i in ITEMS['heads']['cylinder']]),
+		len([i for i in inventory if i in ITEMS['heads']['special']]),
+		len([i for i in inventory if i in ITEMS['weapons']])
+	)
 
 def show_remaining(inventory):
     circles = [i for i in ITEMS['heads']['circle'] if i not in inventory]
@@ -56,7 +42,7 @@ def show_remaining(inventory):
     weapons = [i for i in ITEMS['weapons'] if i not in inventory]
 
     remaining = [circles, triangles, squares, cylinders, stars, weapons]
-    remaining = ["All complete!" if i == [] else i for i in remaining]
+    remaining = ["All complete!" if not i else i for i in remaining]
     return remaining
 
 if __name__ == '__main__':
