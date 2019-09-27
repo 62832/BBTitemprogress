@@ -56,7 +56,7 @@ def show_remaining(inventory):
     weapons = [i for i in ITEMS['weapons'] if i not in inventory]
 
     remaining = [circles, triangles, squares, cylinders, stars, weapons]
-    remaining = ["All complete!" if i == [] else i for i in remaining]
+    remaining = ["All complete!" if not i else i for i in remaining]
     return remaining
 
 if __name__ == '__main__':
